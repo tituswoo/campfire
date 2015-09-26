@@ -24,7 +24,7 @@ var styles = StyleSheet.create({
 	},
 	map: {
 		alignItems: 'stretch',
-		height: 350,
+		height: 250,
 		marginBottom: 10
 	},
 	textInput: {
@@ -58,7 +58,7 @@ class CampfiresView extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			title: 'Campfires',
+			title: '',
 			whereAmI: {
 		        latitude: 1,
 		        longitude: 1,
@@ -77,6 +77,7 @@ class CampfiresView extends React.Component {
 	      var long = initialPosition.coords.longitude;
 
 	      this.setState({
+	      	description: 'What\'s happening?',
 	      	whereAmI: {
 	      		latitude: lat,
 	      		longitude: long,
@@ -135,7 +136,11 @@ class CampfiresView extends React.Component {
 					annotations={this.state.annotations}
 					style={styles.map}>
 				</MapView>
-				<TextInput style={styles.textInput}></TextInput>
+				<TextInput
+					value={this.state.description}
+					style={styles.textInput}
+					clearTextOnFocus={true}
+					onChangeText={(t)=>this.setState({description: t})}></TextInput>
 				<TouchableHighlight onPress={this._onSetUpCamp} style={styles.button}>
 					<Text style={styles.buttonText}>Set up camp</Text>
 				</TouchableHighlight>
