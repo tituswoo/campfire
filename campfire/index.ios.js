@@ -18,7 +18,8 @@ var {
   StyleSheet,
   Text,
   View,
-  TouchableHighlight
+  TouchableHighlight,
+  MapView
 } = React;
 
 var campfire = React.createClass({
@@ -66,6 +67,16 @@ var campfire = React.createClass({
   },
   _getLocation: function () {
     console.log('GETTING LOCATION');
+    navigator.geolocation.getCurrentPosition((initialPosition) => {
+      console.info('initial position:', initialPosition);
+      var lat = initialPosition.coords.latitude;
+      var long = initialPosition.coords.longitude;
+      geofire.set('some other key', [lat, long]).then(function () {
+        console.log('test');
+      }, function (error) {
+        console.warn('error');
+      });
+    });
   }
 });
 
@@ -87,7 +98,6 @@ var styles = StyleSheet.create({
     marginBottom: 5,
   },
   button: {
-    color: 'white',
     backgroundColor: '#4FBDF2',
     paddingTop: 5,
     paddingBottom: 5,

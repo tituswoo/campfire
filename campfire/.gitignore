@@ -25,4 +25,5 @@ project.xcworkspace
 # node.js
 #
 node_modules/
+!node_modules/geofire
 npm-debug.log
