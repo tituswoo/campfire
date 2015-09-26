@@ -6,6 +6,7 @@
 
 var CampfiresView = require('./app/components/CampfiresView');
 var ExploreView = require('./app/components/ExploreView');
+var CampfireDetailView = require('./app/components/CampfireDetailView');
 
 var React = require('react-native');
 
@@ -76,13 +77,19 @@ class campfire extends React.Component {
         myLocation={this.state.myLocation}
         navigator={navigator} />
     }
+    
+    if (route.name === 'CampfireDetailView') {
+      return <CampfireDetailView
+        myLocation={this.state.myLocation}
+        navigator={navigator} />
+    }
   };
 
   render() {
     return (
       <Navigator
         initialRoute={{
-          name: 'ExploreView',
+          name: 'CampfireDetailView',
           index: 0
         }}
         renderScene={this._renderScene.bind(this)}>
