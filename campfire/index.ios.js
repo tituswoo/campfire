@@ -9,11 +9,8 @@
 var Firebase = require('firebase');
 var GeoFire = require('geofire');
 
-var f = new Firebase('https://campfire2.firebaseIO.com/'); 
-
-var geofire = new GeoFire(f);
-
-console.log(geofire);
+var firebase = new Firebase('https://campfire2.firebaseIO.com/'); 
+var geofire = new GeoFire(firebase);
 
 var React = require('react-native');
 var {
