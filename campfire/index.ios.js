@@ -18,6 +18,7 @@ var {
   StyleSheet,
   Text,
   View,
+  TouchableHighlight
 } = React;
 
 var campfire = React.createClass({
@@ -39,6 +40,9 @@ var campfire = React.createClass({
           Press Cmd+R to reload,{'\n'}
           Cmd+D or shake for dev menu
         </Text>
+        <TouchableHighlight style={styles.button} onPress={this._getLocation}>
+          <Text>Get location</Text>
+        </TouchableHighlight>
       </View>
     );
   },
@@ -59,6 +63,9 @@ var campfire = React.createClass({
         <Text>Loading campfires...</Text>
       </View>
     );
+  },
+  _getLocation: function () {
+    console.log('GETTING LOCATION');
   }
 });
 
@@ -79,6 +86,15 @@ var styles = StyleSheet.create({
     color: '#333333',
     marginBottom: 5,
   },
+  button: {
+    color: 'white',
+    backgroundColor: '#4FBDF2',
+    paddingTop: 5,
+    paddingBottom: 5,
+    paddingLeft: 5,
+    paddingRight: 5,
+    borderRadius: 3
+  }
 });
 
 AppRegistry.registerComponent('campfire', () => campfire);
