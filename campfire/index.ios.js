@@ -6,72 +6,77 @@
 
 //var campfire = require('campfire');
 
-var Firebase = require('firebase');
-var GeoFire = require('geofire');
 
-var firebase = new Firebase('https://campfire2.firebaseIO.com/'); 
-var geofire = new GeoFire(firebase);
-var REQUEST_URL = 'https://raw.githubusercontent.com/facebook/react-native/master/docs/MoviesExample.json';
 
+var CampfiresView = require('./app/components/CampfiresView');
 
 var React = require('react-native');
 var {
   AppRegistry,
   StyleSheet,
   Text,
-  TextInput,
   View,
   TouchableHighlight,
   MapView,
-  TextInput
+  TextInput,
+  Navigator,
+  TabBarIOS,
+  StatusBarIOS
 } = React;
 
-var campfire = React.createClass({
+class campfire extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedTab: 'newCamp'
+    };
+  }
+
+  changeTab(tabName) {
+    StatusBarIOS.setStyle(tabName === 'faceMash' ? 1 : 0);
+    this.setState({
+      selectedTab: tabName
+    });
+  };
+
+  _renderScene(route, navigator) {
+    if (route.name === 'CampfiresView') {
+      return <CampfiresView navigator={navigator} />
+    }
+  };
+
+  render() {
+    return (
+      <Navigator
+        initialRoute={{
+          name: 'CampfiresView',
+          index: 0
+        }}
+        renderScene={this._renderScene}>
+      </Navigator>
+    );
+  };
+};
+
+/*var campfire = React.createClass({
   render: function() {
     if (!this.state.campfires) {
       return this.renderLoadingView();
     }
 
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to Campfire!
-        </Text>
+      <Navigator
+        initialRoute={{name: 'Campfires', index: 0}}
+        renderScene={(route, navigator) => {
+        }}>
 
-        <MapView style={styles.map} annotations={this.state.annotations} region={this.state.mapRegion}>
-
-        </MapView>
-
-        <Text style={styles.instructions}>
-          To get started, edit index.ios.js
-          {this.state.debugPosition.lat}
-          {this.state.debugPosition.long}
-        </Text>
-        <Text style={styles.instructions}>
-          {this.state.awesomeText}
-        </Text>
-
-        <Text style={styles.instructions}>{this.state.helloText}</Text>
-        <Text style={styles.instructions}>
-          Press Cmd+R to reload,{'\n'}
-          Cmd+D or shake for dev menu
-        </Text>
-          <TextInput
-            style={{height: 40, borderColor: 'gray', borderWidth: 1, margin: 20, padding: 10}}
-            name="textinput"
-            onChange={this.handleTextInputChange}
-            onSubmitEditing={this.onSubmitEditing}></TextInput>
-        <TouchableHighlight style={styles.button} onPress={this._getLocation}>
-          <Text>Set up camp</Text>
-        </TouchableHighlight>
-      </View>
+      </Navigator>
+      
     );
   },
   getInitialState: function () {
     return {
       campfires: null,
-      text: "",
-      awesomeText: '',
       helloText: 'I am sad, nobody clicked me.',
       debugPosition: {
         lat: '',
@@ -93,7 +98,6 @@ var campfire = React.createClass({
       ]
     }
   },
-  inputText: "",
   renderLoadingView: function () {
     setInterval(() => {
     this.setState({
@@ -110,32 +114,19 @@ var campfire = React.createClass({
   _getLocation: function () {
     console.log('GETTING LOCATION');
     this.setState({
-      helloText: 'YOU CLICKED ME! I am happy.',
-      awesomeText: this.inputText
+      helloText: 'YOU CLICKED ME! I am happy.'
     });
-    var text = this.inputText;
     navigator.geolocation.getCurrentPosition((initialPosition) => {
       console.info('initial position:', initialPosition);
       var lat = initialPosition.coords.latitude;
       var long = initialPosition.coords.longitude;
       geofire.set('some key' + Math.floor(Math.random()), [lat, long]).then(function () {
         console.log('test');
-        console.log({long: long, lat: lat});
-        console.log({eventDesc: text, eventLoc: {long: long, lat: lat}});
       }, function (error) {
         console.warn('error');
       });
     });
-  },
-  handleTextInputChange: function (event) {
-    this.inputText = event.nativeEvent.text;
-  },
-  onSubmitEditing: function (event) {
-    this._getLocation();
-  },
-  _updateText: function (text) {
-    this.setState({awesomeText: text});
-  },
+  }
 });
 
 var styles = StyleSheet.create({
@@ -172,6 +163,6 @@ var styles = StyleSheet.create({
     borderColor: '#1D1F21'
   },
   textInput: {height: 40, width: 300, borderWidth: 1, borderColor: 'black'}
-});
+});*/
 
 AppRegistry.registerComponent('campfire', () => campfire);
