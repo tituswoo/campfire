@@ -38,12 +38,21 @@ class ExploreView extends React.Component {
 		});
 	}
 
+	_goForwards() {
+		this.props.navigator.push({
+			name: 'CampfiresView'
+		});
+	}
+
 	render() {
 		return (
 			<View>
 				<StatusBar
 					title="Explore"
-					goBack={this._goBackwards.bind(this)}>
+					goBack={this._goBackwards.bind(this)}
+					goBackText=""
+					goForward={this._goForwards.bind(this)}
+					goForwardText="Add">
 				</StatusBar>
 				<MapView
 					region={this.props.myLocation.region}

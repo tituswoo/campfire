@@ -79,10 +79,20 @@ class CampfiresView extends React.Component {
       	camp.push({key : myKey, description : this.state.description, visitors : 1, comments: ["This is my favorite place of all time!"], popularity: 1});
 	}
 
+	_goBackwards() {
+		console.log('WENT BACKW|ARDS');
+		this.props.navigator.push({
+			name: 'ExploreView'
+		});
+	}
+
 	render() {
 		return (
 			<View style={styles.container}>
-				<StatusBar title="Campfires"></StatusBar>				
+				<StatusBar
+					title="Campfire"
+					goBack={this._goBackwards.bind(this)}
+					goBackText="Explore"></StatusBar>				
 				<MapView
 					region={this.props.myLocation.region}
 					annotations={this.props.myLocation.annotations}
