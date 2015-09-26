@@ -11,12 +11,15 @@ var GeoFire = require('geofire');
 
 var firebase = new Firebase('https://campfire2.firebaseIO.com/'); 
 var geofire = new GeoFire(firebase);
+var REQUEST_URL = 'https://raw.githubusercontent.com/facebook/react-native/master/docs/MoviesExample.json';
+
 
 var React = require('react-native');
 var {
   AppRegistry,
   StyleSheet,
   Text,
+  TextInput,
   View,
   TouchableHighlight,
   MapView,
@@ -44,12 +47,20 @@ var campfire = React.createClass({
           {this.state.debugPosition.lat}
           {this.state.debugPosition.long}
         </Text>
-        <Text>{this.state.helloText}</Text>
+        <Text style={styles.instructions}>
+          {this.state.awesomeText}
+        </Text>
+
+        <Text style={styles.instructions}>{this.state.helloText}</Text>
         <Text style={styles.instructions}>
           Press Cmd+R to reload,{'\n'}
           Cmd+D or shake for dev menu
         </Text>
-        <TextInput style={styles.textInput}></TextInput>
+          <TextInput
+            style={{height: 40, borderColor: 'gray', borderWidth: 1, margin: 20, padding: 10}}
+            name="textinput"
+            onChange={this.handleTextInputChange}
+            onSubmitEditing={this.onSubmitEditing}></TextInput>
         <TouchableHighlight style={styles.button} onPress={this._getLocation}>
           <Text>Set up camp</Text>
         </TouchableHighlight>
@@ -59,6 +70,8 @@ var campfire = React.createClass({
   getInitialState: function () {
     return {
       campfires: null,
+      text: "",
+      awesomeText: '',
       helloText: 'I am sad, nobody clicked me.',
       debugPosition: {
         lat: '',
@@ -80,6 +93,7 @@ var campfire = React.createClass({
       ]
     }
   },
+  inputText: "",
   renderLoadingView: function () {
     setInterval(() => {
     this.setState({
@@ -96,19 +110,32 @@ var campfire = React.createClass({
   _getLocation: function () {
     console.log('GETTING LOCATION');
     this.setState({
-      helloText: 'YOU CLICKED ME! I am happy.'
+      helloText: 'YOU CLICKED ME! I am happy.',
+      awesomeText: this.inputText
     });
+    var text = this.inputText;
     navigator.geolocation.getCurrentPosition((initialPosition) => {
       console.info('initial position:', initialPosition);
       var lat = initialPosition.coords.latitude;
       var long = initialPosition.coords.longitude;
       geofire.set('some key' + Math.floor(Math.random()), [lat, long]).then(function () {
         console.log('test');
+        console.log({long: long, lat: lat});
+        console.log({eventDesc: text, eventLoc: {long: long, lat: lat}});
       }, function (error) {
         console.warn('error');
       });
     });
-  }
+  },
+  handleTextInputChange: function (event) {
+    this.inputText = event.nativeEvent.text;
+  },
+  onSubmitEditing: function (event) {
+    this._getLocation();
+  },
+  _updateText: function (text) {
+    this.setState({awesomeText: text});
+  },
 });
 
 var styles = StyleSheet.create({
