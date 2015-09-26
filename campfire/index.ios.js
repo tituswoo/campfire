@@ -19,7 +19,8 @@ var {
   Text,
   View,
   TouchableHighlight,
-  MapView
+  MapView,
+  TextInput
 } = React;
 
 var campfire = React.createClass({
@@ -40,14 +41,17 @@ var campfire = React.createClass({
 
         <Text style={styles.instructions}>
           To get started, edit index.ios.js
+          {this.state.debugPosition.lat}
+          {this.state.debugPosition.long}
         </Text>
         <Text>{this.state.helloText}</Text>
         <Text style={styles.instructions}>
           Press Cmd+R to reload,{'\n'}
           Cmd+D or shake for dev menu
         </Text>
+        <TextInput style={styles.textInput}></TextInput>
         <TouchableHighlight style={styles.button} onPress={this._getLocation}>
-          <Text>Get location</Text>
+          <Text>Set up camp</Text>
         </TouchableHighlight>
       </View>
     );
@@ -56,6 +60,10 @@ var campfire = React.createClass({
     return {
       campfires: null,
       helloText: 'I am sad, nobody clicked me.',
+      debugPosition: {
+        lat: '',
+        long: ''
+      },
       mapRegion: {
         latitude: 33.7766249,
         longitude: -84.3963596,
@@ -106,8 +114,9 @@ var campfire = React.createClass({
 var styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    padding: 5,
+    justifyContent: 'flex-start',
+    alignItems: 'stretch',
     backgroundColor: '#F5FCFF',
   },
   welcome: {
@@ -130,11 +139,12 @@ var styles = StyleSheet.create({
   },
   map: {
     height: 150,
-    width: 300,
+    alignItems: 'stretch',
     margin: 10,
     borderWidth: 1,
     borderColor: '#1D1F21'
-  }
+  },
+  textInput: {height: 40, width: 300, borderWidth: 1, borderColor: 'black'}
 });
 
 AppRegistry.registerComponent('campfire', () => campfire);
