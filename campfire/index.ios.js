@@ -8,6 +8,7 @@ var CampfiresView = require('./app/components/CampfiresView');
 var ExploreView = require('./app/components/ExploreView');
 
 var React = require('react-native');
+
 var {
   AppRegistry,
   StyleSheet,
@@ -25,7 +26,8 @@ class campfire extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedTab: 'newCamp'
+      selectedTab: 'newCamp',
+      myLocation: {}
     };
   }
 
@@ -36,13 +38,43 @@ class campfire extends React.Component {
     });
   };
 
+  _getMyLocation() {
+    navigator.geolocation.getCurrentPosition((initPos) => {
+      console.log('Init position:', initPos);
+
+      this.setState({
+        myLocation: {
+          region: {
+            latitude: initPos.coords.latitude,
+            longitude: initPos.coords.longitude,
+            latitudeDelta: 0.006,
+            longitudeDelta: 0.006
+          },
+          annotations: [{
+            latitude: initPos.coords.latitude,
+            longitude: initPos.coords.longitude,
+            animationDrop: true
+          }]
+        }
+      });
+    })
+  }
+
+  componentDidMount() {
+    this._getMyLocation.call(this);
+  }
+
   _renderScene(route, navigator) {
     if (route.name === 'ExploreView') {
-      return <ExploreView navigator={navigator} />
+      return <ExploreView
+        myLocation={this.state.myLocation}
+        navigator={navigator} />
     }
     
     if (route.name === 'CampfiresView') {
-      return <CampfiresView navigator={navigator} />
+      return <CampfiresView
+        myLocation={this.state.myLocation}
+        navigator={navigator} />
     }
   };
 
@@ -53,117 +85,10 @@ class campfire extends React.Component {
           name: 'ExploreView',
           index: 0
         }}
-        renderScene={this._renderScene}>
+        renderScene={this._renderScene.bind(this)}>
       </Navigator>
     );
   };
 };
-
-/*var campfire = React.createClass({
-  render: function() {
-    if (!this.state.campfires) {
-      return this.renderLoadingView();
-    }
-
-    return (
-      <Navigator
-        initialRoute={{name: 'Campfires', index: 0}}
-        renderScene={(route, navigator) => {
-        }}>
-
-      </Navigator>
-      
-    );
-  },
-  getInitialState: function () {
-    return {
-      campfires: null,
-      helloText: 'I am sad, nobody clicked me.',
-      debugPosition: {
-        lat: '',
-        long: ''
-      },
-      mapRegion: {
-        latitude: 33.7766249,
-        longitude: -84.3963596,
-        latitudeDelta: 0.006,
-        longitudeDelta: 0.006
-      },
-      annotations: [
-          {
-            latitude: 33.7766249,
-            longitude: -84.3963596,
-            animationDrop: true,
-            title: 'Hello'
-          }
-      ]
-    }
-  },
-  renderLoadingView: function () {
-    setInterval(() => {
-    this.setState({
-        campfires: []
-      });
-    }, 1000);
-
-    return (
-      <View style={styles.container}>
-        <Text>Loading campfires...</Text>
-      </View>
-    );
-  },
-  _getLocation: function () {
-    console.log('GETTING LOCATION');
-    this.setState({
-      helloText: 'YOU CLICKED ME! I am happy.'
-    });
-    navigator.geolocation.getCurrentPosition((initialPosition) => {
-      console.info('initial position:', initialPosition);
-      var lat = initialPosition.coords.latitude;
-      var long = initialPosition.coords.longitude;
-      geofire.set('some key' + Math.floor(Math.random()), [lat, long]).then(function () {
-        console.log('test');
-      }, function (error) {
-        console.warn('error');
-      });
-    });
-  }
-});
-
-var styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 5,
-    justifyContent: 'flex-start',
-    alignItems: 'stretch',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-  button: {
-    backgroundColor: '#4FBDF2',
-    paddingTop: 5,
-    paddingBottom: 5,
-    paddingLeft: 5,
-    paddingRight: 5,
-    borderRadius: 3
-  },
-  map: {
-    height: 150,
-    alignItems: 'stretch',
-    margin: 10,
-    borderWidth: 1,
-    borderColor: '#1D1F21'
-  },
-  textInput: {height: 40, width: 300, borderWidth: 1, borderColor: 'black'}
-});*/
 
 AppRegistry.registerComponent('campfire', () => campfire);
