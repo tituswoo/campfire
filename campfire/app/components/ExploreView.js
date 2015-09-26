@@ -26,7 +26,6 @@ class ExploreView extends React.Component {
 	}
 
 	_goBackwards() {
-		console.log(this);
 		this.props.navigator.push({
 			name: 'CampfiresView'
 		});

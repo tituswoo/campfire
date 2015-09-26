@@ -78,20 +78,16 @@ class CampfiresView extends React.Component {
 				</MapView>
 				<TextInput
 					placeholder={this.state.description}
-					onChangeText={(e) => console.log('e:', e)}
+					onChangeText={(t) => { this.setState({description: t})}}
 					style={styles.textInput}>
 				</TextInput>
 				<TouchableOpacity
-					onPress={this._onSetUpCamp.apply(this)}
+					onPress={this._onSetUpCamp.bind(this)}
 					style={styles.button}>
 					<Text style={styles.buttonText}>Set up camp</Text>
 				</TouchableOpacity>
 			</View>			
 		);
-	}
-
-	onTextInputChange(event) {
-		this.setState({description: event.nativeEvent.text});
 	}
 };
 
