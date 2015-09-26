@@ -34,9 +34,14 @@ var campfire = React.createClass({
           Welcome to Campfire!
         </Text>
 
+        <MapView style={styles.map} annotations={this.state.annotations} region={this.state.mapRegion}>
+
+        </MapView>
+
         <Text style={styles.instructions}>
           To get started, edit index.ios.js
         </Text>
+        <Text>{this.state.helloText}</Text>
         <Text style={styles.instructions}>
           Press Cmd+R to reload,{'\n'}
           Cmd+D or shake for dev menu
@@ -49,7 +54,22 @@ var campfire = React.createClass({
   },
   getInitialState: function () {
     return {
-      campfires: null
+      campfires: null,
+      helloText: 'I am sad, nobody clicked me.',
+      mapRegion: {
+        latitude: 33.7766249,
+        longitude: -84.3963596,
+        latitudeDelta: 0.006,
+        longitudeDelta: 0.006
+      },
+      annotations: [
+          {
+            latitude: 33.7766249,
+            longitude: -84.3963596,
+            animationDrop: true,
+            title: 'Hello'
+          }
+      ]
     }
   },
   renderLoadingView: function () {
@@ -67,6 +87,9 @@ var campfire = React.createClass({
   },
   _getLocation: function () {
     console.log('GETTING LOCATION');
+    this.setState({
+      helloText: 'YOU CLICKED ME! I am happy.'
+    });
     navigator.geolocation.getCurrentPosition((initialPosition) => {
       console.info('initial position:', initialPosition);
       var lat = initialPosition.coords.latitude;
@@ -104,6 +127,13 @@ var styles = StyleSheet.create({
     paddingLeft: 5,
     paddingRight: 5,
     borderRadius: 3
+  },
+  map: {
+    height: 150,
+    width: 300,
+    margin: 10,
+    borderWidth: 1,
+    borderColor: '#1D1F21'
   }
 });
 
