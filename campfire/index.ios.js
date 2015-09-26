@@ -71,7 +71,7 @@ var campfire = React.createClass({
       console.info('initial position:', initialPosition);
       var lat = initialPosition.coords.latitude;
       var long = initialPosition.coords.longitude;
-      geofire.set('some other key', [lat, long]).then(function () {
+      geofire.set('some key' + Math.floor(Math.random()), [lat, long]).then(function () {
         console.log('test');
       }, function (error) {
         console.warn('error');

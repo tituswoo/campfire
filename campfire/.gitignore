@@ -24,6 +24,6 @@ project.xcworkspace
 
 # node.js
 #
-node_modules/
-!node_modules/geofire
+node_modules/*
+node_modules/geofire/dist/geofire.js
 npm-debug.log
