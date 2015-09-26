@@ -5,22 +5,36 @@ var React = require('react-native');
 var {
 	View,
 	StyleSheet,
-	Text
+	Text,
+	TouchableOpacity,
+	StyleSheet
 } = React;
 
 var styles = StyleSheet.create({
 	statusBar: {
 		paddingTop: 30,
-		paddingBottom: 10,
+		height: 60,
 		backgroundColor: '#FF6B35',
-		flexDirection: 'row'
+		position: 'relative'
 	},
-	statusBarText: {
-		color: 'white',
-		alignItems: 'stretch',
+	leftButton: {
+		position: 'absolute',
+		left: 6
+	},
+	rightButton: {
+		position: 'absolute',
+		right: 6
+	},
+	statusBarTitleText: {
+		position: 'absolute',
+		left: 0,
+		right: 0,
 		textAlign: 'center',
-		flex: 1,
-		fontWeight: 'bold'
+		fontWeight: 'bold',
+		color: 'white',
+	},
+	whiteText: {
+		color: 'white'
 	}
 });
 
@@ -32,12 +46,16 @@ class StatusBar extends React.Component {
 
 	render() {
 		return (
-			<View
-				style={styles.statusBar}>
-				<Text
-					style={styles.statusBarText}>
+			<View style={styles.statusBar}>					
+				<Text style={styles.statusBarTitleText}>
 					{this.props.title}
-				</Text>
+				</Text>	
+				<TouchableOpacity style={styles.leftButton} onPress={this.props.goBack}>
+					<Text style={styles.whiteText}>{this.props.goBackwardText}</Text>
+				</TouchableOpacity>
+				<TouchableOpacity style={styles.rightButton} onPress={this.props.goForward}>
+					<Text style={styles.whiteText}>{this.props.goForwardText}</Text>
+				</TouchableOpacity>
 			</View>
 		);
 	}

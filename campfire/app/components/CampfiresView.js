@@ -25,7 +25,7 @@ var styles = StyleSheet.create({
 	map: {
 		alignItems: 'stretch',
 		height: 250,
-		marginBottom: 10
+		marginBottom: 10,
 	},
 	textInput: {
 		height: 40,
@@ -70,7 +70,7 @@ class CampfiresView extends React.Component {
 	render() {
 		return (
 			<View style={styles.container}>
-				<StatusBar title={this.state.title} />
+				<StatusBar title="Campfires"></StatusBar>				
 				<MapView
 					region={this.props.myLocation.region}
 					annotations={this.props.myLocation.annotations}

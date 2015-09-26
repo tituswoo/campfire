@@ -26,6 +26,7 @@ class ExploreView extends React.Component {
 	}
 
 	_goBackwards() {
+		console.log('WENT BACKW|ARDS');
 		this.props.navigator.push({
 			name: 'CampfiresView'
 		});
@@ -34,15 +35,15 @@ class ExploreView extends React.Component {
 	render() {
 		return (
 			<View>
-				<StatusBar title="Explore" />
+				<StatusBar
+					title="Explore"
+					goBack={this._goBackwards.bind(this)}>
+				</StatusBar>
 				<MapView
 					region={this.props.myLocation.region}
 					annotations={this.props.myLocation.annotations}
 					style={styles.map}>
 				</MapView>
-				<TouchableHighlight onPress={this._goBackwards.bind(this)}>
-					<Text>Back</Text>
-				</TouchableHighlight>
 			</View>
 		);
 	}
