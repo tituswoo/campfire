@@ -7,7 +7,7 @@
   },
   "dependencies": {
     "firebase": "^2.3.0",
-    "geofire": "^3.2.2",
+    // "geofire": "^3.2.2",
     "react-native": "^0.11.2"
   }
 }

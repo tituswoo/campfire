@@ -27,7 +27,5 @@ project.xcworkspace
 node_modules/.bin
 node_modules/firebase
 node_modules/react-native
-node_modules/geofire/*
-!node_modules/geofire/dist
 
 npm-debug.log
