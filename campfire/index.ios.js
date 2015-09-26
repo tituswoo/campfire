@@ -4,11 +4,8 @@
  */
 'use strict';
 
-//var campfire = require('campfire');
-
-
-
 var CampfiresView = require('./app/components/CampfiresView');
+var ExploreView = require('./app/components/ExploreView');
 
 var React = require('react-native');
 var {
@@ -40,6 +37,10 @@ class campfire extends React.Component {
   };
 
   _renderScene(route, navigator) {
+    if (route.name === 'ExploreView') {
+      return <ExploreView navigator={navigator} />
+    }
+    
     if (route.name === 'CampfiresView') {
       return <CampfiresView navigator={navigator} />
     }
@@ -49,7 +50,7 @@ class campfire extends React.Component {
     return (
       <Navigator
         initialRoute={{
-          name: 'CampfiresView',
+          name: 'ExploreView',
           index: 0
         }}
         renderScene={this._renderScene}>
