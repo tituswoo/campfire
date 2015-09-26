@@ -5,7 +5,9 @@ var Firebase = require('firebase');
 var GeoFire = require('geofire');
 
 var firebase = new Firebase('https://campfire2.firebaseIO.com/'); 
-var geofire = new GeoFire(firebase);
+var geo = new Firebase('https://campfire2.firebaseIO.com/geofires');
+var camp = new Firebase('https://campfire2.firebaseIO.com/campfires');
+var geobase = new GeoFire(geo);
 
 var {
 	View,
@@ -64,7 +66,17 @@ class CampfiresView extends React.Component {
 
 	_onSetUpCamp() {
 		console.log('SET UP CAMP!');
-		console.log(this.state.description);
+		var myKey = this.state.description;
+		myKey = myKey.replace(/[^A-Z0-9]+/ig, "");
+		myKey = myKey + "" + Math.floor((Math.random() * 10000) + 1);
+		myKey = myKey.substr(myKey.length - 9);
+
+	      geobase.set(myKey, [this.props.myLocation.region.latitude, this.props.myLocation.region.longitude]).then(function () {
+	        console.log('test');
+	      }, function (error) {
+	        console.warn('error');
+	      });
+      	camp.push({key : myKey, description : this.state.description, visitors : 1, comments: ["This is my favorite place of all time!"], popularity: 1});
 	}
 
 	render() {
@@ -90,5 +102,12 @@ class CampfiresView extends React.Component {
 		);
 	}
 };
+
+// Get a reference to our posts
+var geoQuery = geobase.query({
+  center: [37.3, -122.0],
+  radius: .000005
+});
+console.log(geoQuery);
 
 module.exports = CampfiresView;
