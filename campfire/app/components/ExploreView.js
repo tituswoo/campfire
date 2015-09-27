@@ -53,8 +53,6 @@ class ExploreView extends React.Component {
 			}}>
 				<StatusBar
 					title="Explore"
-					goBack={this._goBackwards.bind(this)}
-					goBackText=""
 					goForward={this._goForwards.bind(this)}
 					goForwardText="Add">
 				</StatusBar>

@@ -26,11 +26,12 @@ var styles = StyleSheet.create({
 		backgroundColor: '#fff'
 	},
 	topContainer: {
-		backgroundColor: '#FF6B35'
+		backgroundColor: '#FF6B35',
+		padding: 10,
+		paddingTop: 0
 	},
 	buttonsContainer: {
-		flexDirection: 'row',
-		justifyContent: 'center'
+		flexDirection: 'row'
 	},
 	contentContainer: {
 		flex: 1,
@@ -39,29 +40,20 @@ var styles = StyleSheet.create({
 		flexDirection: 'column'
 	},
 	scrollContainer: {
-		paddingBottom: 10,
-		flexDirection: 'column'
+		flex: 1
 	},
 	pageTitle: {
 		color: '#fff',
 		textAlign: 'center',
 		fontSize: 30
 	},
-	map: {
-		alignItems: 'stretch',
-		height: 250,
-		marginBottom: 10
-	},
 	button: {
 		padding: 10,
 		borderColor: '#fff',
 		borderWidth: 2,
 		borderRadius: 2,
-		margin: 10,
-		marginTop: 15,
-		marginBottom: 20,
-		flex: 3
-
+		flex: 3,
+		marginTop: 10
 	},
 	buttonText: {
 		color: '#fff',
@@ -70,10 +62,9 @@ var styles = StyleSheet.create({
 	},
 	listItem: {
 		margin: 10,
-		marginTop: 10,
-		marginBottom: 10,
+		marginBottom: 5,
 		borderRadius: 2,
-		borderWidth: 2,
+		borderWidth: 1,
 		padding: 10,
 		borderColor: '#FF6B35',
 	},
@@ -84,24 +75,18 @@ var styles = StyleSheet.create({
 	addCommmentContainer: {
 		flexDirection: 'row',
 		justifyContent: 'center',
-		paddingTop: 10,
-		paddingBottom: 10,
-		margin: 10,
+		padding: 10,
 	},
 	textComment: {
-		height: 40,
 		alignItems: 'stretch',
-		padding: 10,
 		fontSize: 20,
 		borderColor: 'gray',
-		borderWidth: 2,
+		borderWidth: 1,
 		borderRadius: 2,
 		borderColor: '#D4D4D4',
-		margin: 7,
-		marginTop: 10,
-		marginBottom: 10,
 		flex: 3,
-
+		padding: 5,
+		marginRight: 10
 	},
 	btnAddComment: {
 		flex: 1,
@@ -109,12 +94,13 @@ var styles = StyleSheet.create({
 		paddingBottom: 8,
 		borderColor: '#000',
 		borderWidth: 2,
-		borderRadius: 2,
-		margin: 10,
+		borderRadius: 2
 	},
 	btnAddCommentText: {
-		fontSize: 18,
+		fontSize: 20,
 		textAlign: 'center',
+		flex: 1,
+		padding: 5
 	}
 });
 
@@ -151,7 +137,13 @@ class CampfireDetailView extends React.Component {
 	render() {
 		return (
 			<View style={styles.container}>
-				<StatusBar title={this.state.title} />
+				<StatusBar
+					title={this.state.title}
+					goBackwardText="Back"
+					goBackward={() => {
+						console.info('Attack', this);
+						this.props.navigator.push({name: 'ExploreView'})}
+					} />
 				<View style={styles.topContainer}>
 					<Text style={styles.pageTitle}>Crock Pot</Text>
 					<View style={styles.buttonsContainer}>
@@ -160,25 +152,19 @@ class CampfireDetailView extends React.Component {
 							style={styles.button}>
 							<Text style={styles.buttonText}>Like</Text>
 						</TouchableOpacity>
-						<TouchableOpacity
-							onPress={this.checkInPressed.bind(this)}
-							style={styles.button}>
-							<Text style={styles.buttonText}>Check In</Text>
-						</TouchableOpacity>
 					</View>
 				</View>
-				<View style={styles.contentContainer}>
-					<ScrollView
-						style={styles.scrollContainer}>
-						<ListView
-							dataSource={this.state.dataSource}
-							renderRow={(rowData) => 
-								<View style={styles.listItem}>
-									<Text style={styles.listItemText}>{rowData}</Text>
-								</View>
-							}></ListView>
-					</ScrollView>
-				</View>
+				<ScrollView
+					style={styles.scrollContainer}>
+					<ListView
+						automaticallyAdjustContentInsets={false}
+						dataSource={this.state.dataSource}
+						renderRow={(rowData) => 
+							<View style={styles.listItem}>
+								<Text style={styles.listItemText}>{rowData}</Text>
+							</View>
+						}></ListView>
+				</ScrollView>
 				<View style={styles.addCommmentContainer}>
 					<TextInput
 						ref={component => this._textinput = component}

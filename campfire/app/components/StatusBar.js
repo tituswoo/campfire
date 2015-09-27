@@ -52,7 +52,7 @@ class StatusBar extends React.Component {
 				<Text style={styles.statusBarTitleText}>
 					{this.props.title}
 				</Text>	
-				<TouchableOpacity style={styles.leftButton} onPress={this.props.goBack}>
+				<TouchableOpacity style={styles.leftButton} onPress={this.props.goBackward}>
 					<Text style={styles.whiteText}>{this.props.goBackwardText}</Text>
 				</TouchableOpacity>
 				<TouchableOpacity style={styles.rightButton} onPress={this.props.goForward}>

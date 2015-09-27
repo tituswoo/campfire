@@ -65,7 +65,6 @@ class CampfiresView extends React.Component {
 	}
 
 	_onSetUpCamp() {
-		console.log('SET UP CAMP!');
 		var myKey = this.state.description;
 		myKey = myKey.replace(/[^A-Z0-9]+/ig, "");
 		myKey = myKey + "" + Math.floor((Math.random() * 10000) + 1);
@@ -77,10 +76,11 @@ class CampfiresView extends React.Component {
 	        console.warn('error');
 	      });
       	camp.push({key : myKey, description : this.state.description, visitors : 1, comments: ["This is my favorite place of all time!"], popularity: 1});
+
+      	this._goBackwards();
 	}
 
 	_goBackwards() {
-		console.log('WENT BACKW|ARDS');
 		this.props.navigator.push({
 			name: 'ExploreView'
 		});
@@ -91,8 +91,8 @@ class CampfiresView extends React.Component {
 			<View style={styles.container}>
 				<StatusBar
 					title="Campfire"
-					goBack={this._goBackwards.bind(this)}
-					goBackText="Explore"></StatusBar>				
+					goBackward={this._goBackwards.bind(this)}
+					goBackwardText="Explore"></StatusBar>				
 				<MapView
 					region={this.props.myLocation.region}
 					annotations={this.props.myLocation.annotations}
