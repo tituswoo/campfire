@@ -14,14 +14,16 @@ var {
 	Text,
 	TouchableHighlight,
 	MapView,
-	StyleSheet
+	StyleSheet,
+	ListView
 } = React;
 
 var styles = StyleSheet.create({
 	map: {
 		alignItems: 'stretch',
 		height: 150,
-		marginBottom: 10
+		marginBottom: 10,
+		flex: 1
 	}
 });
 
@@ -46,7 +48,9 @@ class ExploreView extends React.Component {
 
 	render() {
 		return (
-			<View>
+			<View style={{
+				flex: 1
+			}}>
 				<StatusBar
 					title="Explore"
 					goBack={this._goBackwards.bind(this)}
@@ -54,11 +58,21 @@ class ExploreView extends React.Component {
 					goForward={this._goForwards.bind(this)}
 					goForwardText="Add">
 				</StatusBar>
-				<MapView
-					region={this.props.myLocation.region}
-					annotations={this.props.myLocation.annotations}
-					style={styles.map}>
-				</MapView>
+				<View style={{
+					flex: 5,
+					flexDirection: 'column',
+					alignItems: 'stretch'
+				}}>
+					<MapView
+						region={this.props.myLocation.region}
+						annotations={this.props.myLocation.annotations}
+						style={styles.map}>
+					</MapView>
+					<View style={{
+						flex: 1
+					}}>
+					</View>
+				</View>
 			</View>
 		);
 	}

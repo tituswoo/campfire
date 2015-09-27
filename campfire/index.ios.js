@@ -89,7 +89,7 @@ class campfire extends React.Component {
     return (
       <Navigator
         initialRoute={{
-          name: 'CampfireDetailView',
+          name: 'ExploreView',
           index: 0
         }}
         renderScene={this._renderScene.bind(this)}>

@@ -34,12 +34,13 @@ var styles = StyleSheet.create({
 	},
 	contentContainer: {
 		flex: 1,
-		paddingBottom: 20,
-		marginBottom: 20
+		paddingBottom: 10,
+		marginBottom: 10,
+		flexDirection: 'column'
 	},
 	scrollContainer: {
-		paddingBottom: 20,
-		marginBottom: 20
+		paddingBottom: 10,
+		flexDirection: 'column'
 	},
 	pageTitle: {
 		color: '#fff',
@@ -68,10 +69,10 @@ var styles = StyleSheet.create({
 		fontWeight: 'bold'
 	},
 	listItem: {
-		margin: 20,
+		margin: 10,
 		marginTop: 10,
-		marginBottom: 20,
-		borderRadius: 10,
+		marginBottom: 10,
+		borderRadius: 2,
 		borderWidth: 2,
 		padding: 10,
 		borderColor: '#FF6B35',
@@ -94,7 +95,7 @@ var styles = StyleSheet.create({
 		fontSize: 20,
 		borderColor: 'gray',
 		borderWidth: 2,
-		borderRadius: 3,
+		borderRadius: 2,
 		borderColor: '#D4D4D4',
 		margin: 7,
 		marginTop: 10,
@@ -107,8 +108,8 @@ var styles = StyleSheet.create({
 		paddingTop: 8,
 		paddingBottom: 8,
 		borderColor: '#000',
-		borderWidth: 1,
-		borderRadius: 5,
+		borderWidth: 2,
+		borderRadius: 2,
 		margin: 10,
 	},
 	btnAddCommentText: {

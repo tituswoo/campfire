@@ -26,7 +26,7 @@ var styles = StyleSheet.create({
 	},
 	map: {
 		alignItems: 'stretch',
-		height: 250,
+		flex: 2,
 		marginBottom: 10,
 	},
 	textInput: {

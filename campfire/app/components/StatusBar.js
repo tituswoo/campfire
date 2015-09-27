@@ -12,8 +12,8 @@ var {
 
 var styles = StyleSheet.create({
 	statusBar: {
-		paddingTop: 30,
-		height: 60,
+		paddingTop: 25,
+		height: 55,
 		backgroundColor: '#FF6B35',
 		position: 'relative'
 	},
@@ -32,9 +32,11 @@ var styles = StyleSheet.create({
 		textAlign: 'center',
 		fontWeight: 'bold',
 		color: 'white',
+		fontSize: 15
 	},
 	whiteText: {
-		color: 'white'
+		color: 'white',
+		fontSize: 15
 	}
 });
 
