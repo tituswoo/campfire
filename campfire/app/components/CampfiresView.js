@@ -33,7 +33,7 @@ var styles = StyleSheet.create({
 		height: 40,
 		alignItems: 'stretch',
 		padding: 5,
-		fontSize: 25,
+		fontSize: 20,
 		borderColor: 'gray',
 		borderWidth: 1,
 		borderRadius: 2,
