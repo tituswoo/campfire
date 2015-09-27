@@ -108,8 +108,8 @@ class CampfireDetailView extends React.Component {
 	constructor(props) {
 		super(props);
 		var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-		var arrList = ['Comment 1', 'Comment 2', ]
-		arrList.push('Titus Woo is awesome');
+		var arrList = ['Delicious food!', 'Yummy, well worth the wait!', ]
+		arrList.push('10/10 good food');
 		this.state = {
 			dataSource: ds.cloneWithRows(arrList),
 			comment: '',
