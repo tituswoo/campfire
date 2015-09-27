@@ -13,9 +13,12 @@ var {
 	View,
 	Text,
 	TouchableHighlight,
+	TouchableOpacity,
 	MapView,
 	StyleSheet,
-	ListView
+	ListView,
+	ScrollView,
+	Image
 } = React;
 
 var styles = StyleSheet.create({
@@ -24,13 +27,42 @@ var styles = StyleSheet.create({
 		height: 150,
 		marginBottom: 10,
 		flex: 1
+	},
+	listEvent: {
+		margin: 15,
+		marginTop: 5,
+		marginBottom: 5,
+		borderRadius: 0,
+		borderWidth: 1,
+		padding: 10,
+		borderColor: '#FF6B35',
+		flexDirection: 'row'
+	},
+	listEventText: {
+		color: '#FF6B35',
+	},
+	scrollContainer: {
+		flex: 1
+	},
+	chevronRight: {
+		width: 20,
+		height: 20
+
 	}
+
 });
 
 class ExploreView extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = {};
+		var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+		var arrList = ['Free pizza at Skiles!!', 'Join Capture the Flag at 4pm', 
+		'Guitarist behind Student Center', 'Pet puppies at the library today!']	
+		this.state = {
+			dataSource: ds.cloneWithRows(arrList),
+			comment: '',
+			arrList: arrList
+		};
 	}
 
 	_goBackwards() {
@@ -44,6 +76,10 @@ class ExploreView extends React.Component {
 		this.props.navigator.push({
 			name: 'CampfiresView'
 		});
+	}
+
+	_viewDetails() {
+		console.log("DETAIL VIEW");
 	}
 
 	render() {
@@ -69,6 +105,16 @@ class ExploreView extends React.Component {
 					<View style={{
 						flex: 1
 					}}>
+						<ScrollView style={styles.scrollContainer}>
+							<ListView
+								automaticallyAdjustContentInsets={false}
+								dataSource={this.state.dataSource}
+		      					renderRow={(rowData) => 
+		      						<View style={styles.listEvent}>
+		      							<Text style={styles.listEventText}>{rowData}</Text>
+		      						</View>
+								}></ListView>
+						</ScrollView>
 					</View>
 				</View>
 			</View>
