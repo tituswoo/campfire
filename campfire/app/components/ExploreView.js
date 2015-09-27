@@ -79,7 +79,9 @@ class ExploreView extends React.Component {
 	}
 
 	_viewDetails() {
-		console.log("DETAIL VIEW");
+		this.props.navigator.push({
+			name: 'CampfireDetailView'
+		});
 	}
 
 	render() {
@@ -111,7 +113,10 @@ class ExploreView extends React.Component {
 								dataSource={this.state.dataSource}
 		      					renderRow={(rowData) => 
 		      						<View style={styles.listEvent}>
+		      							<TouchableOpacity
+		      								onPress={this._viewDetails.bind(this)}>
 		      							<Text style={styles.listEventText}>{rowData}</Text>
+		      							</TouchableOpacity>
 		      						</View>
 								}></ListView>
 						</ScrollView>
